@@ -1,27 +1,49 @@
 ---
-import Analytics from "@vercel/analytics/astro"
+import Analytics from "@vercel/analytics/astro";
+
+const {
+  title,
+  description = "Hi there! My name is Arya and this is my personal website.",
+} = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-		<Analytics />
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{`${title ? `${title} • ` : ""}aryareal`}</title>
+    <meta name="description" content={description} />
+    <meta
+      property="og:title"
+      content={`${title ? `${title} • ` : ""}aryareal`}
+    />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content={`${title ? `${title} • ` : ""}aryareal`}
+    />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/" />
+    <Analytics />
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
 </style>
