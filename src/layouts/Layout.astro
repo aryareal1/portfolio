@@ -4,6 +4,7 @@ import Analytics from "@vercel/analytics/astro";
 const {
   title,
   description = "Hi there! My name is Arya and this is my personal website.",
+  image = "/og.png",
 } = Astro.props;
 ---
 
@@ -22,7 +23,7 @@ const {
       content={`${title ? `${title} • ` : ""}aryareal`}
     />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/" />
+    <meta property="og:image" content={image} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -31,7 +32,7 @@ const {
       content={`${title ? `${title} • ` : ""}aryareal`}
     />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="/" />
+    <meta name="twitter:image" content={image} />
     <Analytics />
   </head>
   <body>
