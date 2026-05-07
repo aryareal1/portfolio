@@ -5,7 +5,9 @@ const {
   title,
   description = "Hi there! My name is Arya and this is my personal website.",
   image = "/og.png",
+  icon = "/favicon.ico",
 } = Astro.props;
+const ogImage = new URL(image, Astro.url.origin);
 ---
 
 <!doctype html>
@@ -13,8 +15,7 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href={icon} />
     <meta name="generator" content={Astro.generator} />
     <title>{`${title ? `${title} • ` : ""}aryareal`}</title>
     <meta name="description" content={description} />
@@ -23,7 +24,7 @@ const {
       content={`${title ? `${title} • ` : ""}aryareal`}
     />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
@@ -32,7 +33,7 @@ const {
       content={`${title ? `${title} • ` : ""}aryareal`}
     />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={ogImage} />
     <Analytics />
   </head>
   <body>
