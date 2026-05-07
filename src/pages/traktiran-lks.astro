@@ -1,0 +1,29 @@
+---
+import Header from "@/components/traktiran/Header.astro";
+import Form from "@/components/traktiran/Form.svelte";
+import List from "@/components/traktiran/List.svelte";
+import Layout from "@/layouts/Layout.astro";
+
+---
+
+<Layout>
+  <main class="container">
+    <Header />
+    <Form client:load />
+    <List client:load />
+  </main>
+</Layout>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #fafafa;
+    color: #1f2937;
+  }
+
+  .container {
+    min-height: 100vh;
+  }
+</style>
