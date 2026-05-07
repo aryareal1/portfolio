@@ -1,4 +1,8 @@
 import { treaty } from "@elysia/eden";
 import type { App } from "@/api/elysia";
 
-export const { api } = treaty<App>("http://localhost:4321");
+const url = import.meta.env.PROD 
+  ? "https://www.aryareal.my.id" 
+  : "http://localhost:4321";
+
+export const { api } = treaty<App>(url);
