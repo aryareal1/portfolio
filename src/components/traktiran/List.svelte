@@ -120,7 +120,7 @@
                   <div class="replies-list">
                     {#each guest.replies as reply}
                       <div class="reply-item">
-                        <span class="reply-badge">Admin</span>
+                        <span class="reply-badge">Arya</span>
                         <span class="reply-message">{reply.message.trim()}</span
                         >
                       </div>
