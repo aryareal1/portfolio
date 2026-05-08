@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "bunx --bun astro dev",
+    "dev:host": "bunx --bun astro dev --host",
     "build": "bunx --bun astro build",
     "preview": "bunx --bun astro preview",
     "astro": "bunx --bun astro"

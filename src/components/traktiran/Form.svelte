@@ -43,30 +43,35 @@
     
     <form onsubmit={handleSubmit} class="form">
       <div class="input-group">
-        <label for="name">Your Name</label>
+        <label for="name">Your Name <span class="required">*</span></label>
         <input 
           type="text" 
           id="name" 
           bind:value={name} 
-          placeholder="Enter your full name" 
+          placeholder="Enter your name" 
           required 
           disabled={status === 'sending'}
         />
       </div>
       
       <div class="input-group">
-        <label for="kata-kata">Your Message</label>
+        <label for="kata-kata">Your Message <span class="optional">(Optional)</span></label>
         <textarea 
           id="kata-kata" 
           bind:value={kataKata} 
           rows="4" 
           placeholder="Say something nice..." 
-          required 
           disabled={status === 'sending'}
         ></textarea>
       </div>
       
-      <button type="submit" class="submit-btn" class:success={status === 'success'} class:error={status === 'error'} disabled={status === 'sending'}>
+      <button 
+        type="submit" 
+        class="submit-btn" 
+        class:success={status === 'success'} 
+        class:error={status === 'error'} 
+        disabled={status === 'sending' || !name.trim()}
+      >
         {#if status === 'sending'}
           <span>Sending...</span>
         {:else if status === 'success'}
@@ -80,6 +85,7 @@
           <Send size={20} />
         {/if}
       </button>
+
     </form>
   </div>
 </section>
@@ -87,20 +93,17 @@
 
 <style>
   .form-section {
-    padding: 2rem 1rem;
-    display: flex;
-    justify-content: center;
+    padding: 0;
   }
 
   .form-card {
     background: white;
-    padding: 2.5rem;
-    border-radius: 1.5rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    width: 100%;
-    max-width: 500px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
+
 
   .form-title {
     font-size: 1.5rem;
@@ -131,7 +134,21 @@
     font-size: 0.875rem;
     font-weight: 600;
     color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
+
+  .required {
+    color: #ef4444;
+  }
+
+  .optional {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
 
   input, textarea {
     padding: 0.75rem 1rem;
@@ -188,13 +205,5 @@
   .submit-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
-  }
-
-  .submit-btn svg {
-    transition: transform 0.2s ease;
-  }
-
-  .submit-btn:hover:not(:disabled) svg {
-    transform: translateX(2px) translateY(-2px);
   }
 </style>

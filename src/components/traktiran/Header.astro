@@ -1,52 +1,19 @@
----
-import { Calendar, Clock, MapPin, Soup } from '@lucide/astro';
----
-
-<header class="header">
+<header>
   <div class="header-content">
     <div class="badge">Celebration</div>
     <h1 class="title">Traktiran <span class="highlight">LKS</span></h1>
     <p class="subtitle">A little treat for the big wins. Come and celebrate with us!</p>
-    
-    <div class="info-grid">
-      <div class="info-item">
-        <span class="icon"><Calendar size={24} /></span>
-        <div class="text">
-          <label>Date</label>
-          <p>Friday, 8 May 2026</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <span class="icon"><Clock size={24} /></span>
-        <div class="text">
-          <label>Time</label>
-          <p>14:00 WIB <small>(After School)</small></p>
-        </div>
-      </div>
-      <div class="info-item">
-        <span class="icon"><MapPin size={24} /></span>
-        <div class="text">
-          <label>Location</label>
-          <p>Rumah Arya</p>
-        </div>
-      </div>
-      <div class="info-item">
-        <span class="icon"><Soup size={24} /></span>
-        <div class="text">
-          <label>Menu</label>
-          <p>Mie Ayam De Noto</p>
-        </div>
-      </div>
-    </div>
   </div>
 </header>
+
 
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 
-  .header {
+  header {
     padding: 4rem 1rem;
+    margin-bottom: 2rem;
     background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.05), transparent),
                 radial-gradient(circle at bottom left, rgba(168, 85, 247, 0.05), transparent);
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -90,70 +57,14 @@ import { Calendar, Clock, MapPin, Soup } from '@lucide/astro';
     font-size: 1.25rem;
     color: #4b5563;
     max-width: 600px;
-    margin: 0 auto 3rem;
+    margin: 0 auto;
     line-height: 1.6;
-  }
-
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .info-item {
-    background: white;
-    padding: 1.25rem;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    text-align: left;
-  }
-
-  .info-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  }
-
-  .icon {
-    font-size: 1.5rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-  }
-
-  .text label {
-    display: block;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    color: #9ca3af;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.25rem;
-  }
-
-  .text p {
-    margin: 0;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    color: #1f2937;
-  }
-
-  .text small {
-    display: block;
-    font-size: 0.75rem;
-    color: #6b7280;
-    font-weight: 400;
   }
 
   @media (max-width: 640px) {
     .title {
       font-size: 2.5rem;
     }
-    .info-grid {
-      grid-template-columns: 1fr;
-    }
   }
-</style>
+</style>
+

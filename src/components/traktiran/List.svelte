@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { api } from '@/lib/api';
-  import { Users, MessageSquare } from '@lucide/svelte';
+  import { api } from "@/lib/api";
+  import { Users, MessageSquare } from "@lucide/svelte";
 
   let guests = $state<any[]>([]);
   let isLoading = $state(true);
@@ -21,10 +21,10 @@
 
   $effect(() => {
     fetchGuests();
-    
+
     const handler = () => fetchGuests();
-    window.addEventListener('traktiran-updated', handler);
-    return () => window.removeEventListener('traktiran-updated', handler);
+    window.addEventListener("traktiran-updated", handler);
+    return () => window.removeEventListener("traktiran-updated", handler);
   });
 </script>
 
@@ -43,7 +43,7 @@
         {/if}
       </p>
     </div>
-    
+
     <div class="guest-grid">
       {#if isLoading && guests.length === 0}
         <div class="skeleton-card"></div>
@@ -71,23 +71,18 @@
   </div>
 </section>
 
-
-
-
 <style>
   .list-section {
-    padding: 4rem 1rem;
-    background: #fdfdfd;
+    padding: 0;
   }
 
   .list-container {
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
   }
 
   .list-header {
-    text-align: center;
-    margin-bottom: 3rem;
+    text-align: left;
+    margin-bottom: 2rem;
   }
 
   .icon-wrapper {
@@ -96,19 +91,20 @@
     background: rgba(99, 102, 241, 0.1);
     color: #4f46e5;
     border-radius: 1rem;
-    margin-bottom: 1rem;
   }
 
   .list-title {
     font-size: 2rem;
     font-weight: 800;
-    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.25rem;
     color: #111827;
   }
 
   #guest-count {
     color: #6b7280;
     font-weight: 500;
+    margin-top: 0;
   }
 
   .guest-grid {
@@ -165,12 +161,6 @@
     color: #4b5563;
   }
 
-  .message-icon {
-    margin-top: 0.25rem;
-    flex-shrink: 0;
-    opacity: 0.5;
-  }
-
   .guest-message {
     margin: 0;
     line-height: 1.6;
@@ -194,18 +184,33 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    );
     animation: shimmer 1.5s infinite;
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .empty-state {
@@ -216,5 +221,11 @@
     background: white;
     border-radius: 1rem;
     border: 2px dashed #e5e7eb;
+  }
+
+  @media (max-width: 1024px) {
+    .list-header {
+      text-align: center;
+    }
   }
 </style>
