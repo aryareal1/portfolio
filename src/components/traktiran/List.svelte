@@ -7,7 +7,9 @@
   let isLoading = $state(true);
 
   async function fetchGuests() {
-    isLoading = true;
+    // Only show loading state on initial load
+    if (guests.length === 0) isLoading = true;
+    
     try {
       const { data, error } = await api.traktiran.get();
       if (!error && data) {
@@ -19,6 +21,7 @@
       isLoading = false;
     }
   }
+
 
   $effect(() => {
     fetchGuests();
