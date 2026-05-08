@@ -3,7 +3,6 @@
   import { getAvatarColor } from "@/lib/utils";
   import { Users, MessageSquare } from "@lucide/svelte";
 
-
   let guests = $state<any[]>([]);
   let isLoading = $state(true);
 
@@ -62,25 +61,26 @@
               <span>#{guests.length - i}</span>
             </div>
             <div class="row-content" class:no-message={!guest.message}>
-              <div class="avatar" style="background: {getAvatarColor(guest.name)}">{guest.name.charAt(0).toUpperCase()}</div>
+              <div
+                class="avatar"
+                style="background: {getAvatarColor(guest.name)}"
+              >
+                {guest.name.charAt(0).toUpperCase()}
+              </div>
               <div class="guest-details">
-
                 <span class="guest-name">{guest.name}</span>
                 {#if guest.message}
                   <div class="message-wrapper">
-                    <MessageSquare size={14} class="message-icon" />
+                    <MessageSquare size={14} />
                     <p class="guest-message">{guest.message}</p>
                   </div>
                 {/if}
-
               </div>
             </div>
-
           </div>
         {/each}
       {/if}
     </div>
-
   </div>
 </section>
 
@@ -173,7 +173,6 @@
     flex-shrink: 0;
   }
 
-
   .guest-details {
     display: flex;
     flex-direction: column;
@@ -188,8 +187,15 @@
 
   .message-wrapper {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .message-wrapper :global(svg) {
+    color: #757a82;
+    flex-shrink: 0;
+    margin-top: 5px;
   }
 
   .guest-message {
@@ -198,8 +204,6 @@
     color: #4b5563;
     font-size: 0.9375rem;
   }
-
-
 
   /* Skeleton */
   .skeleton-row {
@@ -275,4 +279,3 @@
     }
   }
 </style>
-
