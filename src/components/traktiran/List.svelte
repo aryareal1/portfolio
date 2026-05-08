@@ -1,6 +1,8 @@
 <script lang="ts">
   import { api } from "@/lib/api";
+  import { getAvatarColor } from "@/lib/utils";
   import { Users, MessageSquare } from "@lucide/svelte";
+
 
   let guests = $state<any[]>([]);
   let isLoading = $state(true);
@@ -44,30 +46,41 @@
       </p>
     </div>
 
-    <div class="guest-grid">
+    <div class="guest-list">
       {#if isLoading && guests.length === 0}
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
-        <div class="skeleton-card"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
+        <div class="skeleton-row"></div>
       {:else if guests.length === 0}
         <div class="empty-state">
           <p>No RSVPs yet. Be the first!</p>
         </div>
       {:else}
-        {#each guests as guest}
-          <div class="guest-card">
-            <div class="guest-info">
-              <div class="avatar">{guest.name.charAt(0).toUpperCase()}</div>
-              <span class="guest-name">{guest.name}</span>
+        {#each guests as guest, i}
+          <div class="guest-row">
+            <div class="row-number">
+              <span>#{guests.length - i}</span>
             </div>
-            <div class="message-wrapper">
-              <MessageSquare size={16} class="message-icon" />
-              <p class="guest-message">"{guest.message}"</p>
+            <div class="row-content" class:no-message={!guest.message}>
+              <div class="avatar" style="background: {getAvatarColor(guest.name)}">{guest.name.charAt(0).toUpperCase()}</div>
+              <div class="guest-details">
+
+                <span class="guest-name">{guest.name}</span>
+                {#if guest.message}
+                  <div class="message-wrapper">
+                    <MessageSquare size={14} class="message-icon" />
+                    <p class="guest-message">{guest.message}</p>
+                  </div>
+                {/if}
+
+              </div>
             </div>
+
           </div>
         {/each}
       {/if}
     </div>
+
   </div>
 </section>
 
@@ -107,77 +120,97 @@
     margin-top: 0;
   }
 
-  .guest-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .guest-card {
+  .guest-list {
+    display: flex;
+    flex-direction: column;
     background: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
+    overflow: hidden;
     border: 1px solid #f3f4f6;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease;
-    /* In Svelte, we can use transitions but I'll stick to CSS animation for consistency */
+  }
+
+  .guest-row {
+    display: flex;
+    border-bottom: 1px solid #f3f4f6;
     animation: fadeIn 0.5s ease forwards;
   }
 
-  .guest-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  .guest-row:last-child {
+    border-bottom: none;
   }
 
-  .guest-info {
+  .row-number {
+    width: 80px;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+    justify-content: center;
+    border-right: 2px solid #f3f4f6;
+    font-weight: 800;
+    color: #9ca3af;
+    background: #fcfcfc;
+    flex-shrink: 0;
+  }
+
+  .row-content {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    flex: 1;
   }
 
   .avatar {
-    width: 40px;
-    height: 40px;
-    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 700;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+
+  .guest-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .guest-name {
-    font-weight: 700;
+    font-weight: 800;
     color: #111827;
+    font-size: 1.125rem;
   }
 
   .message-wrapper {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
-    align-items: flex-start;
-    color: #4b5563;
   }
 
   .guest-message {
     margin: 0;
     line-height: 1.6;
-    font-style: italic;
+    color: #4b5563;
     font-size: 0.9375rem;
   }
 
+
+
   /* Skeleton */
-  .skeleton-card {
-    height: 140px;
+  .skeleton-row {
+    height: 100px;
     background: #f3f4f6;
-    border-radius: 1rem;
+    border-bottom: 1px solid #e5e7eb;
     position: relative;
     overflow: hidden;
   }
 
-  .skeleton-card::after {
+  .skeleton-row::after {
     content: "";
     position: absolute;
     top: 0;
@@ -205,22 +238,19 @@
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateX(-10px);
     }
     to {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
     }
   }
 
   .empty-state {
-    grid-column: 1 / -1;
-    text-align: center;
     padding: 4rem;
+    text-align: center;
     color: #9ca3af;
-    background: white;
-    border-radius: 1rem;
-    border: 2px dashed #e5e7eb;
+    font-style: italic;
   }
 
   @media (max-width: 1024px) {
@@ -228,4 +258,21 @@
       text-align: center;
     }
   }
+
+  @media (max-width: 640px) {
+    .row-number {
+      width: 60px;
+      font-size: 0.875rem;
+    }
+    .row-content {
+      padding: 1.25rem;
+      gap: 1rem;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      font-size: 1rem;
+    }
+  }
 </style>
+
