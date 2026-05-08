@@ -23,11 +23,27 @@
   $effect(() => {
     fetchGuests();
 
-    const handler = () => fetchGuests();
-    window.addEventListener("traktiran-updated", handler);
-    return () => window.removeEventListener("traktiran-updated", handler);
+    // Refresh on custom event
+    const handleUpdate = () => fetchGuests();
+    window.addEventListener("traktiran-updated", handleUpdate);
+
+    // Refresh on tab focus
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") fetchGuests();
+    };
+    window.addEventListener("visibilitychange", handleVisibility);
+
+    // Refresh every 5 seconds
+    const interval = setInterval(fetchGuests, 5000);
+
+    return () => {
+      window.removeEventListener("traktiran-updated", handleUpdate);
+      window.removeEventListener("visibilitychange", handleVisibility);
+      clearInterval(interval);
+    };
   });
 </script>
+
 
 <section class="list-section">
   <div class="list-container">
