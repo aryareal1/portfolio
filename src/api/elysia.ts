@@ -9,9 +9,9 @@ export const app = new Elysia({ prefix: "/api" })
         info: {
           title: "AryaReal's Portfolio API",
           version: "0.0.1",
-          description: `The **AryaReal's Portfolio API** is an API that is used to store and retrieve information about my projects, experiences, and skills. This API used in my portfolio website.`,
+          description: `The **AryaReal's Portfolio API** is an API that is used to store and retrieve information about my projects, experiences, and skills.\n\nThis API is used in [my portfolio website](https://aryareal.my.id).`,
           contact: {
-            name: "Arya",
+            name: "Arya Dwiputra",
             email: "aryadwiputra193@gmail.com",
             url: "https://aryareal.my.id",
           },
